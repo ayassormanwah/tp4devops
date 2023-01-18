@@ -36,8 +36,7 @@ pipeline {
 	}
 	stage('Deploy image') {
 		steps{
-			bat "docker system prune -a"
-			(& docker ps -aqf "status=exited") | ForEach-Object { docker rm -vf $_ }
+//			bat "docker system prune -a"
 //			bat "docker stop \$(docker -aq)"
 //			bat "docker ps -aq | xargs docker stop | xargs docker rm"
 			bat "docker run --name tp4devops$BUILD_NUMBER -d -p 8081:80 $registry:$BUILD_NUMBER"
