@@ -36,7 +36,7 @@ pipeline {
 	}
 	stage('Deploy image') {
 		steps{
-			if [ "$(docker container inspect -f '{{.State.Running}}' $tp4devops )" == "true" ]; then bat "docker stop tp4devops"
+			bat "docker system prune"
 			bat "docker run --name tp4devops -d -p 8081:80 $registry:$BUILD_NUMBER"
 		}
 	}
