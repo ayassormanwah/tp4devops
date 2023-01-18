@@ -36,7 +36,8 @@ pipeline {
 	}
 	stage('Deploy image') {
 		steps{
-			bat "docker run -d -p 8081:80 $registry:$BUILD_NUMBER"
+			bat "docker stop tp4devops"
+			bat "docker run --name tp4devops -d -p 8081:80 $registry:$BUILD_NUMBER"
 		}
 	}
  }
