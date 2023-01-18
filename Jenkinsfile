@@ -36,7 +36,8 @@ pipeline {
 	}
 	stage('Deploy image') {
 		steps{
-			bat "docker system prune"
+			bat "docker system prune -a"
+			bat "docker stop $(docker ps -q)"
 			bat "docker run --name tp4devops$BUILD_NUMBER -d -p 8081:80 $registry:$BUILD_NUMBER"
 		}
 	}
