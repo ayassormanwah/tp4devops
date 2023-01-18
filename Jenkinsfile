@@ -10,16 +10,16 @@ pipeline {
       steps {
       	git 'https://github.com/ayassormanwah/tp4devops'
       }
-    }
-    stage('Building image') {
+   }
+   stage('Building image') {
       steps{
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
-    }
-    stage('Test image') {
-    	steps{
+   }
+   stage('Test image'){
+   	steps{
     		script {
     			echo "Tests passed"
     		}
@@ -33,6 +33,11 @@ pipeline {
 	        }
 	    }
 	  }
+	}
+	stage('Deploy image') {
+		steps{
+			bat "docker run -d $registry:$BUILD_NUMBER"
+		}
 	}
  }
 }
