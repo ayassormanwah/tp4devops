@@ -34,17 +34,17 @@ pipeline {
 	    }
 	  }
 	}
-	stage('Stop Runing image') {
+	stage('Stop old container') {
 		steps{
-			bat "docker stop 'docker ps --filter "name=tp4"'"
+			bat "docker stop tp4devops && docker rm tp4devops"
+//			bat "docker stop 'docker ps --filter "name=tp4"'"
 //			bat "docker system prune -a"
-//			bat "docker stop \$(docker ps -a -q)"
 //			bat "docker ps -aq | xargs docker stop | xargs docker rm"
 		}
 	}
 	stage('Deploy image') {
 		steps{
-			bat "docker run --name tp4devops$BUILD_NUMBER -d -p 8081:80 $registry:$BUILD_NUMBER"
+			bat "docker run --name tp4devops -d -p 8081:80 $registry:$BUILD_NUMBER"
 		}
 	}
  }
