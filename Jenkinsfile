@@ -36,7 +36,7 @@ pipeline {
 	}
 	stage('Stop Runing image') {
 		steps{
-			bat "docker stop 'docker ps --no-trunc -aq'"
+			bat "docker stop 'docker ps --filter "name=tp4"'"
 //			bat "docker system prune -a"
 //			bat "docker stop \$(docker ps -a -q)"
 //			bat "docker ps -aq | xargs docker stop | xargs docker rm"
