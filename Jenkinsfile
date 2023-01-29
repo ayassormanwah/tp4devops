@@ -34,11 +34,16 @@ pipeline {
 	    }
 	  }
 	}
+	stage('Stop Runing image') {
+		steps{
+			bat "docker stop 'docker ps --no-trunc -aq'"
+//			bat "docker system prune -a"
+//			bat "docker stop \$(docker ps -a -q)"
+//			bat "docker ps -aq | xargs docker stop | xargs docker rm"
+		}
+	}
 	stage('Deploy image') {
 		steps{
-//			bat "docker system prune -a"
-//			bat "docker stop \$(docker -aq)"
-//			bat "docker ps -aq | xargs docker stop | xargs docker rm"
 			bat "docker run --name tp4devops$BUILD_NUMBER -d -p 8081:80 $registry:$BUILD_NUMBER"
 		}
 	}
